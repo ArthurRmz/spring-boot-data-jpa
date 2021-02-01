@@ -8,16 +8,48 @@
 		<div class="card bg-light">
 			<div th:text="${titulo}" class="card-header"></div>
 			<div class="card-body">
-			
-				<img th:if="${#strings.length(cliente.foto)>0}" class="img-thumbnail rounded float-left imagen-usuario"
+				<h4 class="card-title">
+					<a class="btn btn-success btn-xs"
+						th:href="@{'/factura/form/'+${cliente.id}}"
+						th:text="'Crear factura'"></a>
+				</h4>
+
+				<img th:if="${#strings.length(cliente.foto)>0}"
+					class="img-thumbnail rounded float-left imagen-usuario"
 					th:src="@{'/uploads/'+${cliente.foto}}" th:alt="${cliente.foto}" />
-					
+
 				<ul class="list-group">
 					<li class="list-group-item" th:text="${cliente.nombre}"></li>
 					<li class="list-group-item" th:text="${cliente.apellido}"></li>
 					<li class="list-group-item" th:text="${cliente.email}"></li>
 					<li class="list-group-item" th:text="${cliente.createAt}"></li>
 				</ul>
+				<div th:if="${#lists.isEmpty(cliente.facturas)}"
+					class="alert alert-info my-4"
+					th:text="'No hay facturas asignadas para el cliente '+${cliente.nombre}+' '+${cliente.apellido}"></div>
+				<table th:if="${not #lists.isEmpty(cliente.facturas)}"
+					class="table table-bordered table-striped my-4">
+					<thead class="bg-dark text-white">
+						<tr>
+							<th>Folio</th>
+							<th>Descripcion</th>
+							<th>Fecha</th>
+							<th>Total</th>
+							<th>Ver</th>
+							<th>Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="factura:${cliente.facturas}">
+							<td th:text="${factura.id}"></td>
+							<td th:text="${factura.descripcion}"></td>
+							<td th:text="${factura.createAt}"></td>
+							<td th:text="'$'+${#numbers.formatDecimal(factura.total, 1, 'COMMA', 2, 'POINT')}"></td>
+							<td><a th:href="@{'/factura/ver/'+${factura.id}}" th:text="'Detalle'" class="btn btn-primary btn-xs"></a></td>
+							<td><a th:href="@{'/factura/eliminar/'+${factura.id}}" th:text="'Eliminar'" class="btn btn-danger btn-xs" onclick="return confirm('¿Estas seguro que desea eliminar la factura?');"></a></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

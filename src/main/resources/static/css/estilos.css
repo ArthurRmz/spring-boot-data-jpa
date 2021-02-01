@@ -1,3 +1,11 @@
 .imagen-usuario{
 	max-width: 25%;
 }
+
+.footer-background{
+	background: rgba(0, 0, 0, 0.2);
+}
+
+.card-observaciones{
+	max-width: 20rem;
+}
