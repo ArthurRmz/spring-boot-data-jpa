@@ -45,4 +45,10 @@ public class ClienteServiceImpl implements IClienteService {
 		return clienteDao.findAll(pageable);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public Cliente fetchByIdWithFacturas(Long id) {
+		return clienteDao.fetchByIdWithFacturas(id);
+	}
+
 }

@@ -9,4 +9,6 @@ public interface IFacturaService {
 	public Factura findFacturaById(Long id);
 	
 	public void delete(Long id);
+	
+	public Factura fetchFacturaByIdWithClienteWithItemFacturaWithProducto(Long Id);
 }

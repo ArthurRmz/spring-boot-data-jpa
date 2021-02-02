@@ -1,7 +1,6 @@
 package com.dark.hat.app.controllers;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.dark.hat.app.models.entity.Cliente;
 import com.dark.hat.app.models.entity.Factura;
 import com.dark.hat.app.models.entity.ItemFactura;
@@ -23,12 +21,9 @@ import com.dark.hat.app.models.service.IClienteService;
 import com.dark.hat.app.models.service.IFacturaService;
 import com.dark.hat.app.models.service.IProductoService;
 
-import lombok.extern.log4j.Log4j2;
-
 @Controller
 @RequestMapping("/factura")
 @SessionAttributes("factura")
-@Log4j2
 public class FacturaController {
 	
 	private static String TITULO = "titulo";
@@ -105,7 +100,8 @@ public class FacturaController {
 	public String ver (@PathVariable(value="id") Long id,
 			Model model,
 			RedirectAttributes flash) {
-		Factura factura = facturaService.findFacturaById(id);
+		Factura factura = facturaService.fetchFacturaByIdWithClienteWithItemFacturaWithProducto(id);
+		//Factura factura = facturaService.findFacturaById(id);
 		if(factura==null) {
 			flash.addFlashAttribute("error", "La factura no existe en la base de datos!");
 			return "redirect:/listar";
