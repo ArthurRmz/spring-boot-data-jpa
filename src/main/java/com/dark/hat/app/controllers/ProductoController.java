@@ -2,6 +2,8 @@ package com.dark.hat.app.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dark.hat.app.models.entity.Producto;
 import com.dark.hat.app.models.service.IProductoService;
 
+//@Secured("ROLE_ADMIN")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @Controller
 @RequestMapping("/producto")
 public class ProductoController {

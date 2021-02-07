@@ -2,6 +2,8 @@ package com.dark.hat.app.controllers;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,8 @@ import com.dark.hat.app.models.service.IClienteService;
 import com.dark.hat.app.models.service.IFacturaService;
 import com.dark.hat.app.models.service.IProductoService;
 
+//@Secured("ROLE_ADMIN")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @Controller
 @RequestMapping("/factura")
 @SessionAttributes("factura")
