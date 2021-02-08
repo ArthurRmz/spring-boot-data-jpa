@@ -3,11 +3,13 @@ package com.dark.hat.app.controllers;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -64,6 +66,9 @@ public class ClienteController {
 
 	@Autowired
 	private IUploadFileService uploadFileService;
+	
+	@Autowired
+	private MessageSource messageSource;
 
 	// {filename:.+} esa expresion permite que spring no borre la extension del
 	// archivo
@@ -103,7 +108,8 @@ public class ClienteController {
 	@RequestMapping(value = {"/listar","/"}, method = RequestMethod.GET)
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model,
 			Authentication authentication,
-			HttpServletRequest request) {
+			HttpServletRequest request,
+			Locale locale) {
 		
 		if(authentication!=null) {
 			log.info("Hola usuario autenticado, tu username es: ".concat(authentication.getName()));
@@ -138,7 +144,7 @@ public class ClienteController {
 
 		Page<Cliente> clientes = clienteService.findAll(pageRequest);
 		PageRender<Cliente> pageRender = new PageRender<>(URL_LISTAR, clientes);
-		model.addAttribute(TITULO_PAGINA, "Listado de clientes");
+		model.addAttribute(TITULO_PAGINA, messageSource.getMessage("text.cliente.listar.titulo", null, locale));
 		model.addAttribute("clientes", clientes);
 		model.addAttribute("page", pageRender);
 		return "listar";
