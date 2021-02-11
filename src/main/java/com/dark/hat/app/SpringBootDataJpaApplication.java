@@ -28,11 +28,11 @@ public class SpringBootDataJpaApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		uploadFileService.deleteAll();
 		uploadFileService.init();
-		String password = "12345";
+		/**String password = "12345";
 		for (int i = 0; i < 2; i++) {
 			String bcryptPassword = passwordEncoder.encode(password);
 			log.info(bcryptPassword);
-		}
+		}*/
 	}
 
 }
