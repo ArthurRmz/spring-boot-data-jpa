@@ -19,10 +19,14 @@ import com.dark.hat.app.models.entity.ItemFactura;
 import com.lowagie.text.Document;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfWriter;
+
+import lombok.extern.log4j.Log4j2;
+
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 
-@Component("factura/ver")
+@Log4j2
+@Component("factura/ver.pdf")
 public class FacturaPdfView extends AbstractPdfView{
 	
 	@Autowired
@@ -35,6 +39,7 @@ public class FacturaPdfView extends AbstractPdfView{
 	protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		log.info("[FacturaPdfView][Inicio]");
 		Locale locale = localeResolver.resolveLocale(request);
 		MessageSourceAccessor mensaje = getMessageSourceAccessor();
 		
