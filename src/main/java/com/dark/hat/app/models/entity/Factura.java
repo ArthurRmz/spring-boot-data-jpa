@@ -19,12 +19,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
-
-import lombok.Data;
+import javax.xml.bind.annotation.XmlTransient;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name="facturas")
-@Data
 public class Factura implements Serializable{
 
 	/**
@@ -34,23 +34,25 @@ public class Factura implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Getter @Setter private Long id;
 	
 	@NotEmpty
-	private String descripcion;
+	@Getter	@Setter private String descripcion;
 
-	private String observacion;
+	@Getter	@Setter private String observacion;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="create_at")
-	private Date createAt;
+	@Getter	@Setter private Date createAt;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@Getter(onMethod_={@XmlTransient})
+	@Setter()
 	private Cliente cliente;
 	
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinColumn(name = "factura_id")
-	private List<ItemFactura> items;
+	@Getter	@Setter	private List<ItemFactura> items;
 	
 	public void agregarItemFactura(ItemFactura item) {
 		this.items.add(item);
