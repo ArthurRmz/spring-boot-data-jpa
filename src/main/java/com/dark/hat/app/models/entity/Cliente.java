@@ -22,6 +22,8 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Data
 @Entity
@@ -55,6 +57,7 @@ public class Cliente implements Serializable{
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull
 	@ToString.Exclude
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createAt;
 	
 	@ToString.Exclude
@@ -62,6 +65,7 @@ public class Cliente implements Serializable{
 	
 	@OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@ToString.Exclude
+	@JsonManagedReference
 	private List<Factura> facturas;
 	
 	/*@PrePersist

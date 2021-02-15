@@ -20,6 +20,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,6 +51,7 @@ public class Factura implements Serializable{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@Getter(onMethod_={@XmlTransient})
 	@Setter()
+	@JsonBackReference
 	private Cliente cliente;
 	
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)

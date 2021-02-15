@@ -16,6 +16,10 @@ public class ViewController {
 		log.info("[ViewController][Inicio]");
 		String ultimaUrl = request.getHeader("referer");
 		log.info("[ViewController][url][".concat(ultimaUrl).concat("]"));
+		String urlAux = ultimaUrl.substring(ultimaUrl.lastIndexOf("/"));
+		if(urlAux.equals("/listar") || urlAux.equals("/")) {
+			ultimaUrl = ultimaUrl.substring(0,ultimaUrl.lastIndexOf("/")).concat("/listar?page=0");
+		}
 		return "redirect:".concat(ultimaUrl).concat("&").concat("format=").concat(format);
 	}
 
