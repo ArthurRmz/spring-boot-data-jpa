@@ -4,10 +4,11 @@ $(document).ready(()=>{
 });
 
 const buscador_productos = () =>{
+	let urlAjax = $('#urlAjax').val();
 	$("#buscar_producto").autocomplete({
 		source: (request,response)=>{
 			$.ajax({
-				url: "/producto/cargar-productos/"+request.term,
+				url: urlAjax+request.term,
 				dataType: "json",
 				data: {
 					term: request.term,
